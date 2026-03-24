@@ -10,9 +10,9 @@ A.	MEMBRE DU GROUPE :
 B.	DOCUMENTATION TECHNIQUE
 scraping sur le site 👉 http://tenymalagasy.org/
 Objectif :
-•	Extraire les fototeny et leurs dérivés (racines de mots)
-•	Extraire les anaran-toerana (noms de lieux)
-•	Les données sont ensuite structurées et exportées en fichiers CSV
+- Extraire les fototeny et leurs dérivés (racines de mots)
+- Extraire les anaran-toerana (noms de lieux)
+- Les données sont ensuite structurées et exportées en fichiers CSV
 
 1)	Technologies utilisées
 Python 3
@@ -25,9 +25,9 @@ urllib.parse : pour construire des URLs complètes
 2)	Architecture du projet
 Scripts principaux :
 3.1 scraper_Fototeny.py
-Fonction : récupérer les racines de mots et leurs dérivés.
-Fonctionnement :
-Connexion au site via requests
+  	Fonction : récupérer les racines de mots et leurs dérivés.
+  	Fonctionnement :
+  	Connexion au site via requests
 Récupération du HTML
 Analyse avec BeautifulSoup
 Extraction :
