@@ -1,4 +1,97 @@
-<<<<<<< HEAD
+
+# 📝 Éditeur de Texte Intelligent pour la Langue Malgache (NLP)
+**Projet de Master 2 - Semestre 1 : Machine Learning**
+
+Ce projet consiste en la création d'un éditeur de texte assisté par une IA spécialisée dans le traitement du langage naturel (NLP) malgache. Il intègre du web scraping de données linguistiques, une correction orthographique avancée, de la reconnaissance vocale et un chatbot de conjugaison.
+
+---
+
+## 👥 Membres du Groupe
+* **Harijaona** (IGGLIA N°20)
+* **Rollando** (IGGLIA N°21)
+* **Fandresena** (IGGLIA N°7)
+* **Ziana** (ESIIA N°15)
+* **Tovomanandrafale** (ESIIA N°25)
+
+---
+
+## 🛠️ Stack Technique
+* **Backend :** Python 3.x, Flask (API REST)
+* **Frontend :** React.js, Quill.js (Éditeur de texte)
+* **Data Science & NLP :** Pandas, RapidFuzz (Levenshtein), BeautifulSoup4 (Scraping), Regex
+* **Communication :** Axios / Fetch API (Port 3000 -> 5000)
+
+---
+
+## 🕸️ Documentation du Web Scraping
+Les données sources proviennent du site [tenymalagasy.org](http://tenymalagasy.org/). L'objectif était d'extraire et de structurer le patrimoine linguistique malgache.
+
+### 1. Collecte des Données
+* **`scraper_Fototeny.py`** : Extrait les racines (*fototeny*) et leurs dérivés.
+    * *Sorties :* Fichiers CSV contenant plus de 18 000 relations racine/dérivés.
+* **`scraper_toerana.py`** : Récupère les noms de lieux (*anaran-toerana*) via les listes géographiques.
+    * *Sorties :* Base de données des lieux de Madagascar.
+
+### 2. Logique de Scraping
+* **Gestion des requêtes :** Utilisation de `User-Agent` et `time.sleep` pour respecter la charge du serveur source.
+* **Nettoyage :** Filtrage par expressions régulières pour supprimer les doublons et les caractères spéciaux.
+* **Structuration :** Exportation en format CSV via **Pandas** (format riche et format par paires).
+
+---
+
+## 🧠 Fonctionnalités IA & NLP
+
+### 1. Analyse Phonotactique Symbolique
+Vérification en temps réel de la validité de la structure syllabique malgache via RegEx (ex: détection des combinaisons interdites comme `nb`, `mk`, `sz`).
+
+### 2. Correction Orthographique (Levenshtein)
+Calcul de la distance entre le mot saisi et le dictionnaire via l'algorithme de **Levenshtein** (Bibliothèque `RapidFuzz`). Suggestions automatiques pour les mots inconnus avec un seuil de score optimisé.
+
+### 3. Lemmatisation (Extraction de Racine)
+Liaison dynamique des mots dérivés vers leur racine (*fototeny*) grâce à une cartographie issue du scraping, permettant une meilleure compréhension morphologique.
+
+### 4. Reconnaissance Vocale (Speech-to-Text)
+Saisie textuelle par la voix utilisant la **Web Speech API**, avec une optimisation pour le filtrage des pauses et des bruits ambiants.
+
+### 5. Assistant Chatbot : Spécialiste en Conjugaison
+Agent conversationnel capable de générer les formes verbales malgaches :
+* **Temps gérés :** Présent (`m-`), Passé (`n-`), Futur (`h-`).
+* **Voix :** Active, Passive et Relative.
+* **Euphonie :** Gestion automatique des modifications de lettres lors de l'ajout de suffixes.
+
+---
+
+## 🚀 Guide de Lancement Rapide
+
+Pour exécuter le projet, vous devez lancer les deux serveurs simultanément :
+
+### Terminal 1 : Backend (IA & API)
+```bash
+cd backend
+python app.py
+```
+*Le serveur Flask démarrera sur `http://127.0.0.1:5000`*
+
+### Terminal 2 : Frontend (Interface)
+```bash
+cd frontend
+npm install
+npm start
+```
+*L'interface React s'ouvrira sur `http://localhost:3000`*
+
+---
+
+## 📚 Bibliographie
+* **Données :** [Dictionnaire Teny Malagasy](http://tenymalagasy.org/)
+* **Langage :** [Python Documentation](https://docs.python.org/3/)
+* **NLP :** [RapidFuzz - Distance de Levenshtein](https://maxbachmann.github.io/RapidFuzz/)
+* **Parsing :** [BeautifulSoup Documentation](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -70,5 +163,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 =======
-# ExamM2S1Machine_learning
->>>>>>> 6192c897791dd2a8f9b08af12245a77e71cbe876
+
