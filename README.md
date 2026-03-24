@@ -15,9 +15,9 @@ Objectif :
 - Les données sont ensuite structurées et exportées en fichiers CSV
 
 1)	Technologies utilisées
-Python 3
-requests : pour envoyer des requêtes HTTP
-BeautifulSoup (bs4) : pour parser le HTML
+- Python 3
+- requests : pour envoyer des requêtes HTTP
+- BeautifulSoup (bs4) : pour parser le HTML
 pandas : pour manipuler les données et exporter en CSV
 re (regex) : pour nettoyer les textes
 urllib.parse : pour construire des URLs complètes
