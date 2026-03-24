@@ -18,9 +18,9 @@ Objectif :
 - Python 3
 - requests : pour envoyer des requêtes HTTP
 - BeautifulSoup (bs4) : pour parser le HTML
-pandas : pour manipuler les données et exporter en CSV
-re (regex) : pour nettoyer les textes
-urllib.parse : pour construire des URLs complètes
+- pandas : pour manipuler les données et exporter en CSV
+- re (regex) : pour nettoyer les textes
+- urllib.parse : pour construire des URLs complètes
 
 2)	Architecture du projet
 Scripts principaux :
