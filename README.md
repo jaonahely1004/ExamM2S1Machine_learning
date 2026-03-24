@@ -23,7 +23,7 @@ Objectif :
 - urllib.parse : pour construire des URLs complètes
 
 2)	Architecture du projet
-- Scripts principaux :
+Scripts principaux :
 
 3.1 scraper_Fototeny.py
   	Fonction : récupérer les racines de mots et leurs dérivés.
@@ -66,14 +66,17 @@ Parcourt les lettres et collecte les données
 Sorties :
 tenymalagasy_geoLists_all_letters.csv
 tenymalagasy_geoLists_toerana_only.csv
+
 3)	Logique de scraping
 4.1 Gestion des requêtes
 Utilisation d’un User-Agent personnalisé
 Pause (time.sleep) entre requêtes pour éviter le blocage
+
 4.2 Filtrage des données
 Sélection des liens contenant /bins/teny2/
 Suppression des doublons
 Nettoyage des chaînes avec regex
+
 4.3 Structuration des données
 Utilisation de pandas DataFrame
 Transformation en :
@@ -85,47 +88,47 @@ C.	FONCTIONNALITE IA
 L'IA vérifie en temps réel si la structure des mots respecte les règles de construction syllabique du malgache.
 •	Mécanisme : Utilisation d'expressions régulières (RegEx) pour détecter les combinaisons de consonnes interdites (ex: nb, mk, bp, sz).
 •	Utilité : Identifier immédiatement des fautes de frappe ou des mots étrangers non adaptés phonétiquement.
+
 2. Correction Orthographique (Algorithme de Levenshtein)
 En cas de mot inconnu, le moteur suggère les corrections les plus probables.
-•	Algorithme : Distance de Levenshtein via la bibliothèque RapidFuzz.
-•	Fonctionnement : Calcule le nombre minimal de manipulations (insertion, suppression, substitution) pour transformer le mot saisi en un mot valide du dictionnaire.
-•	Optimisation : Filtrage intelligent avec un seuil de distance (Score ) pour garantir la pertinence des suggestions.
-3. Lemmatisation et Extraction de Racine (Fototeny)
+- Algorithme : Distance de Levenshtein via la bibliothèque RapidFuzz.
+- Fonctionnement : Calcule le nombre minimal de manipulations (insertion, suppression, substitution) pour transformer le mot saisi en un mot valide du dictionnaire.
+- Optimisation : Filtrage intelligent avec un seuil de distance (Score ) pour garantir la pertinence des suggestions.
+
+4. Lemmatisation et Extraction de Racine (Fototeny)
 Le moteur est capable de lier un mot dérivé ou conjugué à sa racine originale.
-•	Base de connaissances : Cartographie dynamique (Mapping) issue d'un dictionnaire de paires Racine/Dérivés (plus de 18 000 entrées).
-•	Utilité : Permet à l'utilisateur de comprendre la structure morphologique du mot et facilite l'analyse sémantique.
-4. Reconnaissance Vocale (Speech-to-Text)
+- Base de connaissances : Cartographie dynamique (Mapping) issue d'un dictionnaire de paires Racine/Dérivés (plus de 18 000 entrées).
+- Utilité : Permet à l'utilisateur de comprendre la structure morphologique du mot et facilite l'analyse sémantique.
+
+6. Reconnaissance Vocale (Speech-to-Text)
 L'éditeur permet la saisie de texte par la voix, facilitant l'accessibilité et la rapidité de rédaction en langue malgache.
-•	Technologie : Web Speech API (ou intégration d'un modèle de reconnaissance phonétique).
-•	Fonctionnalité : Transcription instantanée de la parole en texte directement dans l'éditeur Quill.
-•	Optimisation : Filtrage des bruits ambiants et gestion des pauses pour une ponctuation fluide.
-5. Assistant Chatbot : Spécialiste en Conjugaison
+- Technologie : Web Speech API (ou intégration d'un modèle de reconnaissance phonétique).
+- Fonctionnalité : Transcription instantanée de la parole en texte directement dans l'éditeur Quill.
+- Optimisation : Filtrage des bruits ambiants et gestion des pauses pour une ponctuation fluide.
+
+8. Assistant Chatbot : Spécialiste en Conjugaison
 Un agent conversationnel dédié à l'assistance morphologique pour aider l'utilisateur à conjuguer correctement les verbes malgaches.
-•	Fonctionnalité principale : Génération automatique des formes verbales à partir d'une racine (fototeny).
-•	Modes traités : Capacité à transformer un verbe selon les temps (Présent, Passé, Futur) et les voix (Active, Passive, Relative).
-•	Logique Algorithmique : * Détection des préfixes temporels (m-, n-, h-).
-o	Gestion des modifications euphoniques lors de l'ajout de suffixes.
+- Fonctionnalité principale : Génération automatique des formes verbales à partir d'une racine (fototeny).
+- Modes traités : Capacité à transformer un verbe selon les temps (Présent, Passé, Futur) et les voix (Active, Passive, Relative).
+- Logique Algorithmique : * Détection des préfixes temporels (m-, n-, h-).
+  Gestion des modifications euphoniques lors de l'ajout de suffixes.
 
 API Rest Intégrée (Flask)
 Une passerelle de communication robuste pour l'intégration multi-plateforme.
-•	Technologie : Flask avec support CORS (Cross-Origin Resource Sharing).
-•	Fonctionnalité : Permet au frontend (React/Port 3000) de communiquer de manière asynchrone avec le moteur Python (Port 5000) via des requêtes JSON.
+- Technologie : Flask avec support CORS (Cross-Origin Resource Sharing).
+- Fonctionnalité : Permet au frontend (React/Port 3000) de communiquer de manière asynchrone avec le moteur Python (Port 5000) via des requêtes JSON.
 
-📂 Structure des Fonctionnalités IA (Résumé final)
-FonctionnalitéAlgorithme / TechnologieÉtatAnalyse PhonotactiqueRegex (Filtres symboliques)OpérationnelCorrection OrthographiqueDistance de Levenshtein (RapidFuzz)OpérationnelLemmatisationMapping Racine/Dérivés (Dictionnaire)OpérationnelSaisie VocaleWeb Speech APIOpérationnelChatbot ConjugaisonTraitement MorphologiqueOpérationnel
-📂 Structure du Projet (Multi-Ports)
-Pour faire fonctionner l'ensemble de ces modules, le projet est segmenté comme suit :
-ComposantTechnologiePort par défautRôleFrontendReact.js3000Interface utilisateur, Éditeur Quill, Chatbot UIMoteur IAPython / Flask5000Analyse Levenshtein, Phonotactique, LemmatisationAssistantAPI / Services5000Logique du Chatbot et traitement des requêtes vocales
 🛠️ Stack Technique
 •	Langage : Python 3.x
 •	Bibliothèques clés : Pandas (Gestion de données), RapidFuzz (Logique floue), Flask (API).
 •	Interface : Éditeur Quill.js intégré sous React.
+
 🚀 Guide de lancement rapide
 Pour exécuter le projet complet, ouvrez deux terminaux :
-1.	Terminal IA (Backend) :
+- Terminal IA (Backend) :
 cd backend
 python app.py
-2.	Terminal Interface (Frontend) :
+- Terminal Interface (Frontend) :
 cd frontend
 npm start
 
