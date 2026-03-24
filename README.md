@@ -23,7 +23,8 @@ Objectif :
 - urllib.parse : pour construire des URLs complètes
 
 2)	Architecture du projet
-Scripts principaux :
+- Scripts principaux :
+
 3.1 scraper_Fototeny.py
   	Fonction : récupérer les racines de mots et leurs dérivés.
   	Fonctionnement :
