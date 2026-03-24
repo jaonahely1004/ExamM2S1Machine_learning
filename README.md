@@ -1,146 +1,92 @@
-ExamM2S1Machine_learning
 
-A.	MEMBRE DU GROUPE :
-- Harijaona IGGLIA N°20 
-- Rollando IGGLIA N°21
-- Fandresena IGGLIA N°7
-- Ziana ESIIA N°15
-- Tovomanandrafale ESIIA N°25
+# 📝 Éditeur de Texte Intelligent pour la Langue Malgache (NLP)
+**Projet de Master 2 - Semestre 1 : Machine Learning**
 
-B.	DOCUMENTATION TECHNIQUE
-scraping sur le site 👉 http://tenymalagasy.org/
-Objectif :
-- Extraire les fototeny et leurs dérivés (racines de mots)
-- Extraire les anaran-toerana (noms de lieux)
-- Les données sont ensuite structurées et exportées en fichiers CSV
+Ce projet consiste en la création d'un éditeur de texte assisté par une IA spécialisée dans le traitement du langage naturel (NLP) malgache. Il intègre du web scraping de données linguistiques, une correction orthographique avancée, de la reconnaissance vocale et un chatbot de conjugaison.
 
-1)	Technologies utilisées
-- Python 3
-- requests : pour envoyer des requêtes HTTP
-- BeautifulSoup (bs4) : pour parser le HTML
-- pandas : pour manipuler les données et exporter en CSV
-- re (regex) : pour nettoyer les textes
-- urllib.parse : pour construire des URLs complètes
+---
 
-2)	Architecture du projet
-Scripts principaux :
+## 👥 Membres du Groupe
+* **Harijaona** (IGGLIA N°20)
+* **Rollando** (IGGLIA N°21)
+* **Fandresena** (IGGLIA N°7)
+* **Ziana** (ESIIA N°15)
+* **Tovomanandrafale** (ESIIA N°25)
 
-3.1 scraper_Fototeny.py
-  	Fonction : récupérer les racines de mots et leurs dérivés.
-  	Fonctionnement :
-  	Connexion au site via requests
-Récupération du HTML
-Analyse avec BeautifulSoup
-Extraction :
-root_text → fototeny
-deriv_texts → mots dérivés
-Nettoyage des données
-Export CSV
-Fonctions principales :
-normalize_term(text)
-Supprime les espaces inutiles dans les mots
-fetch_html(session, url)
-Télécharge le contenu HTML d’une page
-parse_rootlists_page(html, page_url, option)
-Analyse les tableaux HTML
-Extrait les racines et leurs dérivés
-scrape_rootlists(options)
-Parcourt les différentes lettres
-Agrège les résultats dans un DataFrame
-Sorties :
-tenymalagasy_rootLists_all_letters.csv
-tenymalagasy_rootLists_pairs_all_letters.csv
+---
 
-3.2 scraper_toerana.py
-Fonction : récupérer les noms de lieux.
-Fonctionnement :
-Accès à /bins/geoLists
-Extraction des liens contenant les lieux
-Nettoyage et suppression des doublons
-Export CSV
-Fonctions principales :
-parse_geolists_page(html, page_url, option)
-Extrait les noms de lieux depuis les balises <a>
-scrape_geolists(options)
-Parcourt les lettres et collecte les données
-Sorties :
-tenymalagasy_geoLists_all_letters.csv
-tenymalagasy_geoLists_toerana_only.csv
+## 🛠️ Stack Technique
+* **Backend :** Python 3.x, Flask (API REST)
+* **Frontend :** React.js, Quill.js (Éditeur de texte)
+* **Data Science & NLP :** Pandas, RapidFuzz (Levenshtein), BeautifulSoup4 (Scraping), Regex
+* **Communication :** Axios / Fetch API (Port 3000 -> 5000)
 
-3)	Logique de scraping
-4.1 Gestion des requêtes
-Utilisation d’un User-Agent personnalisé
-Pause (time.sleep) entre requêtes pour éviter le blocage
+---
 
-4.2 Filtrage des données
-Sélection des liens contenant /bins/teny2/
-Suppression des doublons
-Nettoyage des chaînes avec regex
+## 🕸️ Documentation du Web Scraping
+Les données sources proviennent du site [tenymalagasy.org](http://tenymalagasy.org/). L'objectif était d'extraire et de structurer le patrimoine linguistique malgache.
 
-4.3 Structuration des données
-Utilisation de pandas DataFrame
-Transformation en :
-format riche
-format simplifié (1 ligne = 1 relation)
+### 1. Collecte des Données
+* **`scraper_Fototeny.py`** : Extrait les racines (*fototeny*) et leurs dérivés.
+    * *Sorties :* Fichiers CSV contenant plus de 18 000 relations racine/dérivés.
+* **`scraper_toerana.py`** : Récupère les noms de lieux (*anaran-toerana*) via les listes géographiques.
+    * *Sorties :* Base de données des lieux de Madagascar.
 
-C.	FONCTIONNALITE IA
-1. Analyse Phonotactique Symbolique
-L'IA vérifie en temps réel si la structure des mots respecte les règles de construction syllabique du malgache.
-•	Mécanisme : Utilisation d'expressions régulières (RegEx) pour détecter les combinaisons de consonnes interdites (ex: nb, mk, bp, sz).
-•	Utilité : Identifier immédiatement des fautes de frappe ou des mots étrangers non adaptés phonétiquement.
+### 2. Logique de Scraping
+* **Gestion des requêtes :** Utilisation de `User-Agent` et `time.sleep` pour respecter la charge du serveur source.
+* **Nettoyage :** Filtrage par expressions régulières pour supprimer les doublons et les caractères spéciaux.
+* **Structuration :** Exportation en format CSV via **Pandas** (format riche et format par paires).
 
-2. Correction Orthographique (Algorithme de Levenshtein)
-En cas de mot inconnu, le moteur suggère les corrections les plus probables.
-- Algorithme : Distance de Levenshtein via la bibliothèque RapidFuzz.
-- Fonctionnement : Calcule le nombre minimal de manipulations (insertion, suppression, substitution) pour transformer le mot saisi en un mot valide du dictionnaire.
-- Optimisation : Filtrage intelligent avec un seuil de distance (Score ) pour garantir la pertinence des suggestions.
+---
 
-4. Lemmatisation et Extraction de Racine (Fototeny)
-Le moteur est capable de lier un mot dérivé ou conjugué à sa racine originale.
-- Base de connaissances : Cartographie dynamique (Mapping) issue d'un dictionnaire de paires Racine/Dérivés (plus de 18 000 entrées).
-- Utilité : Permet à l'utilisateur de comprendre la structure morphologique du mot et facilite l'analyse sémantique.
+## 🧠 Fonctionnalités IA & NLP
 
-6. Reconnaissance Vocale (Speech-to-Text)
-L'éditeur permet la saisie de texte par la voix, facilitant l'accessibilité et la rapidité de rédaction en langue malgache.
-- Technologie : Web Speech API (ou intégration d'un modèle de reconnaissance phonétique).
-- Fonctionnalité : Transcription instantanée de la parole en texte directement dans l'éditeur Quill.
-- Optimisation : Filtrage des bruits ambiants et gestion des pauses pour une ponctuation fluide.
+### 1. Analyse Phonotactique Symbolique
+Vérification en temps réel de la validité de la structure syllabique malgache via RegEx (ex: détection des combinaisons interdites comme `nb`, `mk`, `sz`).
 
-8. Assistant Chatbot : Spécialiste en Conjugaison
-Un agent conversationnel dédié à l'assistance morphologique pour aider l'utilisateur à conjuguer correctement les verbes malgaches.
-- Fonctionnalité principale : Génération automatique des formes verbales à partir d'une racine (fototeny).
-- Modes traités : Capacité à transformer un verbe selon les temps (Présent, Passé, Futur) et les voix (Active, Passive, Relative).
-- Logique Algorithmique : * Détection des préfixes temporels (m-, n-, h-).
-  Gestion des modifications euphoniques lors de l'ajout de suffixes.
+### 2. Correction Orthographique (Levenshtein)
+Calcul de la distance entre le mot saisi et le dictionnaire via l'algorithme de **Levenshtein** (Bibliothèque `RapidFuzz`). Suggestions automatiques pour les mots inconnus avec un seuil de score optimisé.
 
-API Rest Intégrée (Flask)
-Une passerelle de communication robuste pour l'intégration multi-plateforme.
-- Technologie : Flask avec support CORS (Cross-Origin Resource Sharing).
-- Fonctionnalité : Permet au frontend (React/Port 3000) de communiquer de manière asynchrone avec le moteur Python (Port 5000) via des requêtes JSON.
+### 3. Lemmatisation (Extraction de Racine)
+Liaison dynamique des mots dérivés vers leur racine (*fototeny*) grâce à une cartographie issue du scraping, permettant une meilleure compréhension morphologique.
 
-🛠️ Stack Technique
-•	Langage : Python 3.x
-•	Bibliothèques clés : Pandas (Gestion de données), RapidFuzz (Logique floue), Flask (API).
-•	Interface : Éditeur Quill.js intégré sous React.
+### 4. Reconnaissance Vocale (Speech-to-Text)
+Saisie textuelle par la voix utilisant la **Web Speech API**, avec une optimisation pour le filtrage des pauses et des bruits ambiants.
 
-🚀 Guide de lancement rapide
-Pour exécuter le projet complet, ouvrez deux terminaux :
-- Terminal IA (Backend) :
+### 5. Assistant Chatbot : Spécialiste en Conjugaison
+Agent conversationnel capable de générer les formes verbales malgaches :
+* **Temps gérés :** Présent (`m-`), Passé (`n-`), Futur (`h-`).
+* **Voix :** Active, Passive et Relative.
+* **Euphonie :** Gestion automatique des modifications de lettres lors de l'ajout de suffixes.
+
+---
+
+## 🚀 Guide de Lancement Rapide
+
+Pour exécuter le projet, vous devez lancer les deux serveurs simultanément :
+
+### Terminal 1 : Backend (IA & API)
+```bash
 cd backend
 python app.py
-- Terminal Interface (Frontend) :
-cd frontend
-npm start
+```
+*Le serveur Flask démarrera sur `http://127.0.0.1:5000`*
 
-📚 Bibliographie
-Sources web
-Site source des données :
-http://tenymalagasy.org/
-Documentation officielle :
-Python : https://docs.python.org/3/
-Requests : https://docs.python-requests.org/
-BeautifulSoup : https://www.crummy.com/software/BeautifulSoup/bs4/doc/
-Pandas : https://pandas.pydata.org/docs/
+### Terminal 2 : Frontend (Interface)
+```bash
+cd frontend
+npm install
+npm start
+```
+*L'interface React s'ouvrira sur `http://localhost:3000`*
+
+---
+
+## 📚 Bibliographie
+* **Données :** [Dictionnaire Teny Malagasy](http://tenymalagasy.org/)
+* **Langage :** [Python Documentation](https://docs.python.org/3/)
+* **NLP :** [RapidFuzz - Distance de Levenshtein](https://maxbachmann.github.io/RapidFuzz/)
+* **Parsing :** [BeautifulSoup Documentation](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
 
 
 
